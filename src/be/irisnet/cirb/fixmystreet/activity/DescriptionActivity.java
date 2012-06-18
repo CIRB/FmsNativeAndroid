@@ -36,7 +36,7 @@ public class DescriptionActivity extends FixMyStreetActivity {
 					Log.i(this.getClass().getName(), "DescriptionActivity is initializing event listeners");
 					Intent intentToSummary = new Intent(IntentAction.SUMMARY);
 					intentToSummary.addCategory(IntentCategory.CIRB_FIXMYSTREET);
-					startActivity(intentToSummary);
+					startActivity(intentToSummary);					
 				}
 			});
     	}
