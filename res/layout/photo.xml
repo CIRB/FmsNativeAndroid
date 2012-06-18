@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+	<FrameLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="right"
+	    android:orientation="horizontal" >
+
+	    <Button
+	        android:id="@+id/takePhoto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/takePhoto"
+	        android:onClick="takePhoto" />
+
+	    <Button
+	        android:id="@+id/photoNextActivity"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="right"
+	        android:onClick="nextActivity"
+	        android:text="@string/next" />
+
+	</FrameLayout>
+    
+    <ImageView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:src="@drawable/ic_launcher" />
+
+</LinearLayout>
