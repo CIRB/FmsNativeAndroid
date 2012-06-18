@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class PhotoActivity extends Activity {
+public class PhotoActivity extends FixMyStreetActivity {
     private Uri imageUri;
     public final int TAKE_PICTURE = 168;
 

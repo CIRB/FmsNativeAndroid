@@ -1,5 +1,6 @@
 package be.irisnet.cirb.fixmystreet.activity;
 
+import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.application.FixMyStreetApplication;
 
 import com.google.android.maps.MapActivity;
@@ -17,6 +18,12 @@ public abstract class FixMyStreetMapActivity extends MapActivity {
 	 */
 	public FixMyStreetApplication getFixMyStreetApplication() {
 		return (FixMyStreetApplication) getApplication();
+	}
+	
+	@Override
+	protected void onPause() {		
+		this.overridePendingTransition(R.anim.right2left, R.anim.left2right);
+		super.onDestroy();
 	}
 	
 }

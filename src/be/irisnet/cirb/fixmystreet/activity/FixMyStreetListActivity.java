@@ -1,6 +1,7 @@
 package be.irisnet.cirb.fixmystreet.activity;
 
 import android.app.ListActivity;
+import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.application.FixMyStreetApplication;
 
 /**
@@ -16,6 +17,12 @@ public abstract class FixMyStreetListActivity extends ListActivity {
 	 */
 	public FixMyStreetApplication getFixMyStreetApplication() {
 		return (FixMyStreetApplication) getApplication();
+	}
+	
+	@Override
+	protected void onPause() {		
+		this.overridePendingTransition(R.anim.right2left, R.anim.left2right);
+		super.onDestroy();
 	}
 	
 }

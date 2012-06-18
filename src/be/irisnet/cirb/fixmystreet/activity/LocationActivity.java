@@ -24,7 +24,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class LocationActivity extends MapActivity implements LocationListener, OnTouchListener {
+public class LocationActivity extends FixMyStreetMapActivity implements LocationListener, OnTouchListener {
 	private MapView map;
 	private OverlayItem pointer;
 	private LocationItemizedOverlay pointers;
