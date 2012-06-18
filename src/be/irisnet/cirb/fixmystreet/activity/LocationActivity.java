@@ -1,4 +1,4 @@
-package be.irisnet.cirb.fixmystreet;
+package be.irisnet.cirb.fixmystreet.activity;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import be.irisnet.cirb.fixmystreet.R;
+import be.irisnet.cirb.fixmystreet.constants.IntentAction;
+import be.irisnet.cirb.fixmystreet.constants.IntentCategory;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -45,9 +48,9 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 	
 	public void nextActivity(View v) {
 		// currLocation
-        Intent intent = new Intent(getApplicationContext(), PhotoActivity.class);
-        intent.addCategory("android.intent.category.cirb.fixmystreet");
-        startActivity(intent);
+        Intent intentToSummary = new Intent(IntentAction.DESCRIPTION);
+		intentToSummary.addCategory(IntentCategory.CIRB_FIXMYSTREET);
+		startActivity(intentToSummary);
 	}
 
 	@Override

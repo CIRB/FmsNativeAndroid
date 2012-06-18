@@ -1,6 +1,10 @@
-package be.irisnet.cirb.fixmystreet;
+package be.irisnet.cirb.fixmystreet.activity;
 
 import java.io.File;
+
+import be.irisnet.cirb.fixmystreet.R;
+import be.irisnet.cirb.fixmystreet.R.id;
+import be.irisnet.cirb.fixmystreet.R.layout;
 
 import android.app.Activity;
 import android.content.ContentResolver;
