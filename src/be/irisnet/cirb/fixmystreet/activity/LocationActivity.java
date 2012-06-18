@@ -76,7 +76,7 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 			pointers.clear();
 		} else {
 			Log.i("app", "construct cursor");
-	        pointers = new LocationItemizedOverlay(getResources().getDrawable(R.drawable.ic_launcher), this);
+	        pointers = new LocationItemizedOverlay(getResources().getDrawable(R.drawable.ic_marker), this);
 	        pointers.setOnTouchListener(this);
 	        map.getOverlays().add(pointers);
 		}
