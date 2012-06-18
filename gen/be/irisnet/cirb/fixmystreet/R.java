@@ -11,9 +11,13 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int ic_logo=0x7f020001;
-        public static final int ic_marker=0x7f020002;
+        public static final int category=0x7f020000;
+        public static final int description=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int ic_logo=0x7f020003;
+        public static final int ic_marker=0x7f020004;
+        public static final int map=0x7f020005;
+        public static final int photo=0x7f020006;
     }
     public static final class id {
         public static final int button1=0x7f050004;

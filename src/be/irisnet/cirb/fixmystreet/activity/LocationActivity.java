@@ -2,9 +2,10 @@ package be.irisnet.cirb.fixmystreet.activity;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.constants.IntentAction;
@@ -24,7 +26,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class LocationActivity extends MapActivity implements LocationListener, OnTouchListener {
+public class LocationActivity extends MapActivity implements LocationListener, LocationChangeListener {
 	private MapView map;
 	private OverlayItem pointer;
 	private LocationItemizedOverlay pointers;
@@ -39,7 +41,6 @@ public class LocationActivity extends MapActivity implements LocationListener, O
         map = (MapView) findViewById(R.id.mapView);
         map.setBuiltInZoomControls(true);
         map.getController().setZoom(24);
-        
         
         lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -68,6 +69,11 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 
 		moveCursorTo(currLocation);
 		map.getController().animateTo(currLocation);
+		
+        if (lm != null) {
+        	lm.removeUpdates(this);
+        	lm = null;
+        }
 	}
 
 	private void moveCursorTo(GeoPoint point) {
@@ -77,7 +83,7 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 		} else {
 			Log.i("app", "construct cursor");
 	        pointers = new LocationItemizedOverlay(getResources().getDrawable(R.drawable.ic_marker), this);
-	        pointers.setOnTouchListener(this);
+	        pointers.setLocationChangeListener(this);
 	        map.getOverlays().add(pointers);
 		}
 
@@ -86,30 +92,28 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 	}
 
 	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		currLocation = map.getProjection().fromPixels((int)event.getX(), (int)event.getY());
+	public void onLocationChange(GeoPoint p) {
+		currLocation = p;
 		moveCursorTo(currLocation);
-        if (event.getAction()==MotionEvent.ACTION_UP) {
-    		map.getController().animateTo(currLocation);
-        }
-        if (lm != null) {
-        	lm.removeUpdates(this);
-        	lm = null;
-        }
-		return true;
+        
+    	map.getController().animateTo(currLocation);
 	}
 
 	@Override public void onProviderDisabled(String provider) {Log.i("app", "provider disabled");}
 	@Override public void onProviderEnabled(String provider) {Log.i("app", "provider enabled");}
 	@Override public void onStatusChanged(String provider, int status, Bundle extras) {Log.i("app", "provider status changed");}
+
 	
 	private class LocationItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 		private ArrayList<OverlayItem> pointers = new ArrayList<OverlayItem>();
 		private Context context;
-		private OnTouchListener touchListener;
+		private LocationChangeListener touchListener;
+		private Drawable defaultMarker;
+		private boolean dragging = false;
 
-		public LocationItemizedOverlay(Drawable defaultMarker) {
-			super(boundCenterBottom(defaultMarker));
+		public LocationItemizedOverlay(Drawable m) {
+			super(boundCenterBottom(m));
+			defaultMarker = m;
 		}
 
 		public void clear() {
@@ -117,7 +121,7 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 		}
 
 		public LocationItemizedOverlay(Drawable defaultMarker, Context c) {
-			super(boundCenterBottom(defaultMarker));
+			this(defaultMarker);
 			context = c;
 		}
 		public void addOverlay(OverlayItem overlay) {
@@ -132,37 +136,58 @@ public class LocationActivity extends MapActivity implements LocationListener, O
 
 		@Override
 		public int size() {
-			// TODO Auto-generated method stub
 			return pointers.size();
 		}
 
-		@Override
-		protected boolean onTap(int index) {
-			OverlayItem item = pointers.get(index);
-			AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-			dialog.setTitle(item.getTitle());
-			dialog.setMessage(item.getSnippet());
-			dialog.show();
-			return true;
-		}
-
-
-		public OnTouchListener getOnTouchListener() {
+		public LocationChangeListener getLocationChangeListener() {
 			return touchListener;
 		}
 
 
-		public void setOnTouchListener(OnTouchListener touchListener) {
+		public void setLocationChangeListener(LocationChangeListener touchListener) {
 			this.touchListener = touchListener;
 		}
 		
-		
-	    @Override
-	    public boolean onTouchEvent(MotionEvent event, MapView mapview){
+		public boolean onTap(GeoPoint gp, MapView mv) {
 	    	if (touchListener != null) {
-	    		touchListener.onTouch(mapview, event);
+	    		touchListener.onLocationChange(gp);
+	    		return true;
 	    	}
-	        return true;
+			return super.onTap(gp, mv);
+		}
+	    @Override
+	    public boolean onTouchEvent(MotionEvent event, MapView map) {
+	    	if (touchListener != null) {
+		        final int x=(int)event.getX();
+		        final int y=(int)event.getY();
+				GeoPoint p = map.getProjection().fromPixels((int)event.getX(), (int)event.getY());
+		        
+		        if (dragging && event.getAction() == MotionEvent.ACTION_UP) {
+		        	dragging = false;
+		        	touchListener.onLocationChange(p);
+		    		return true;
+		        }
+
+		        if (dragging && event.getAction() == MotionEvent.ACTION_MOVE) {
+		        	touchListener.onLocationChange(p);
+			    	return true;
+		        }
+		        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					for (OverlayItem item : pointers) {
+						Point point=new Point(0,0);
+					    
+					    map.getProjection().toPixels(item.getPoint(), point);
+					    
+					    if (hitTest(item, defaultMarker, x-point.x, y-point.y)) {
+					    	dragging = true;
+					    	Log.i("app", "hit cursor");
+					    	touchListener.onLocationChange(p);
+					    	return true;
+					    }
+					}
+		        }
+	    	}
+	        return false;
 	    }
 	}
 }
