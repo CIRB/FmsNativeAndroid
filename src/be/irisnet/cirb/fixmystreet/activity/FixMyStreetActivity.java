@@ -1,10 +1,6 @@
 package be.irisnet.cirb.fixmystreet.activity;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.text.Layout;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.application.FixMyStreetApplication;
 
@@ -25,8 +21,8 @@ public abstract class FixMyStreetActivity extends Activity {
 	
 	@Override
 	protected void onPause() {		
-		this.overridePendingTransition(R.anim.right2left, R.anim.left2right);
-		super.onDestroy();
+		this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);		
+		super.onPause();
 	}
 	
 }

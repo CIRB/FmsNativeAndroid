@@ -2,10 +2,6 @@ package be.irisnet.cirb.fixmystreet.activity;
 
 import java.io.File;
 
-import be.irisnet.cirb.fixmystreet.R;
-import be.irisnet.cirb.fixmystreet.R.id;
-import be.irisnet.cirb.fixmystreet.R.layout;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -18,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import be.irisnet.cirb.fixmystreet.R;
 
 public class PhotoActivity extends FixMyStreetActivity {
     private Uri imageUri;
@@ -60,6 +57,7 @@ public class PhotoActivity extends FixMyStreetActivity {
                      bitmap = android.provider.MediaStore.Images.Media
                      .getBitmap(cr, selectedImage);
 
+                    this.getFixMyStreetApplication().getDossier().setPicture(bitmap);
                     imageView.setImageBitmap(bitmap);
                     imageView.setVisibility(ImageView.VISIBLE);
                     Toast.makeText(this, selectedImage.toString(),
@@ -69,6 +67,9 @@ public class PhotoActivity extends FixMyStreetActivity {
                             .show();
                     Log.e("Camera", e.toString());
                 }
+            } else {
+            	//Clear bitmap
+            	this.getFixMyStreetApplication().getDossier().setPicture(null);
             }
         }
     }

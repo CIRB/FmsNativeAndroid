@@ -21,7 +21,7 @@ public abstract class FixMyStreetListActivity extends ListActivity {
 	
 	@Override
 	protected void onPause() {		
-		this.overridePendingTransition(R.anim.right2left, R.anim.left2right);
+		this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 		super.onDestroy();
 	}
 	

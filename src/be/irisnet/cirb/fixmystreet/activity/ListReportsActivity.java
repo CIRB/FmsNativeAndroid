@@ -2,16 +2,14 @@ package be.irisnet.cirb.fixmystreet.activity;
 
 import java.util.Arrays;
 
-import be.irisnet.cirb.fixmystreet.constants.IntentAction;
-import be.irisnet.cirb.fixmystreet.constants.IntentCategory;
-
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import be.irisnet.cirb.fixmystreet.constants.IntentAction;
+import be.irisnet.cirb.fixmystreet.constants.IntentCategory;
 
 public class ListReportsActivity extends FixMyStreetListActivity{
 
@@ -57,6 +55,8 @@ public class ListReportsActivity extends FixMyStreetListActivity{
 		final Intent intent = new Intent("jonathan");
 		intent.putExtra("type", report);
 		
+		//Store the selected type
+		this.getFixMyStreetApplication().getDossier().setType(report);
 		
 		Intent intentToSummary = new Intent(IntentAction.PICTURE);
 		intentToSummary.addCategory(IntentCategory.CIRB_FIXMYSTREET);
