@@ -1,14 +1,15 @@
 package be.irisnet.cirb.fixmystreet.activity;
 
-import android.app.Activity;
 import be.irisnet.cirb.fixmystreet.application.FixMyStreetApplication;
+
+import com.google.android.maps.MapActivity;
 
 /**
  * FixMyStreetActivity to give an easy access to FixMyStreet applications.
  * @author Tdesany
  *
  */
-public abstract class FixMyStreetActivity extends Activity {
+public abstract class FixMyStreetMapActivity extends MapActivity {
 
 	/**
 	 * getFixMyStreetApplication returns the application managing those activities.

@@ -3,6 +3,9 @@ package be.irisnet.cirb.fixmystreet.activity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.constants.IntentAction;
 import be.irisnet.cirb.fixmystreet.constants.IntentCategory;
@@ -74,8 +77,37 @@ public class SummaryActivity extends FixMyStreetActivity implements AdapterView.
         //Link an adapter to the ViewList.
         ArrayList<String> entries = new ArrayList<String>(Arrays.asList(""));
         adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, entries);
+        Map<String, Object> current = new HashMap<String, Object>();
+        List<Map<String, Object>> values = new ArrayList<Map<String,Object>>();        
+        //Add type row
+        current.put("title", (this.getFixMyStreetApplication().getDossier().getType()!=null)?this.getFixMyStreetApplication().getDossier().getType():" ");
+        current.put("image", R.drawable.category);
+        values.add(current);
+        //Add picture row
+        current = new HashMap<String, Object>();
+        current.put("title", (this.getFixMyStreetApplication().getDossier().getPicture()!=null)?this.getFixMyStreetApplication().getDossier().getPicture():" ");
+        current.put("image", R.drawable.photo);
+        values.add(current);
+        //Add geo row
+        current = new HashMap<String, Object>();
+        current.put("title", (this.getFixMyStreetApplication().getDossier().getLocation()!=null)?this.getFixMyStreetApplication().getDossier().getLocation():" ");
+        current.put("image", R.drawable.map);
+        values.add(current);
+        //Add description row
+        current = new HashMap<String, Object>();
+        current.put("title", (this.getFixMyStreetApplication().getDossier().getDescription()!=null)?this.getFixMyStreetApplication().getDossier().getDescription():" ");
+        current.put("image", R.drawable.description);
+        values.add(current);
+        
+        
+        SimpleAdapter simpleAdapter = new SimpleAdapter(
+        		this.getApplicationContext(),         		
+        		values,
+        		R.layout.fixmystreet_summary_listitem, 
+        		new String[]{"title", "image"},
+        		new int[]{R.id.summary_item_text, R.id.summary_item_image});
         ListView listView = (ListView) findViewById(R.id.fixmystreet_summary_List);
-        listView.setAdapter(adapter);
+        listView.setAdapter(simpleAdapter);
         //Add item selection listener
         listView.setOnItemClickListener(this);
     }

@@ -4,18 +4,18 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <imageView
+    <ImageView
         android:id="@+id/summary_item_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.25" >
-    </imageView>
+    </ImageView>
 
-    <textView
-        android:id="@+id/summary_item_text"
+    <TextView
+        android:id="@+id/summary_item_text"        
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.75" >
-    </textView>
+    </TextView>
 
 </LinearLayout>
