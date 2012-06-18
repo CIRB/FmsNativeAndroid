@@ -25,12 +25,15 @@ public final class R {
         public static final int fixmystreet_summary_label=0x7f050005;
         public static final int fixmystreet_summary_layout=0x7f050003;
         public static final int fixmystreet_summarycontent_layout=0x7f050007;
+        public static final int imageView1=0x7f05000c;
         public static final int mapView=0x7f05000a;
-        public static final int photoNextActivity=0x7f05000d;
-        public static final int preview=0x7f05000e;
+        public static final int photoNextActivity=0x7f050010;
+        public static final int preview=0x7f050011;
         public static final int summary_item_image=0x7f050008;
         public static final int summary_item_text=0x7f050009;
-        public static final int takePhoto=0x7f05000c;
+        public static final int takePhoto=0x7f05000f;
+        public static final int textView1=0x7f05000d;
+        public static final int textView2=0x7f05000e;
     }
     public static final class layout {
         public static final int fixmystreet_description=0x7f030000;
@@ -46,10 +49,11 @@ public final class R {
         public static final int activity_label_summary=0x7f040005;
         public static final int activity_label_summary_button_next=0x7f040007;
         public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int brussels=0x7f04000a;
         public static final int listReports=0x7f040008;
         public static final int next=0x7f040003;
         public static final int report=0x7f040009;
         public static final int takePhoto=0x7f040002;
+        public static final int welcome=0x7f040000;
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, FmsAndroidActivity!</string>
+    <string name="welcome">Fix My Street</string>
     <string name="app_name">FmsAndroid</string>
     <string name="takePhoto">Take a photo</string>
     <string name="next">Next</string>
@@ -11,5 +11,6 @@
     <string name="activity_label_summary_button_next">Send</string>
     <string name="listReports">Reports list</string>
     <string name="report">Report</string>
-
+    <string name="brussels">Brussels</string>
+    
 </resources>
