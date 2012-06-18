@@ -3,7 +3,6 @@ package be.irisnet.cirb.fixmystreet.activity;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -14,19 +13,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import be.irisnet.cirb.fixmystreet.R;
 import be.irisnet.cirb.fixmystreet.constants.IntentAction;
 import be.irisnet.cirb.fixmystreet.constants.IntentCategory;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
-import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-public class LocationActivity extends MapActivity implements LocationListener, LocationChangeListener {
+public class LocationActivity extends FixMyStreetMapActivity implements LocationListener, LocationChangeListener {
 	private MapView map;
 	private OverlayItem pointer;
 	private LocationItemizedOverlay pointers;

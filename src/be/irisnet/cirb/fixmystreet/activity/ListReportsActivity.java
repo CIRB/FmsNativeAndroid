@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ListReportsActivity extends ListActivity {
+public class ListReportsActivity extends FixMyStreetListActivity{
 
 	private static final String TAG = "ListReportsActivity";
 

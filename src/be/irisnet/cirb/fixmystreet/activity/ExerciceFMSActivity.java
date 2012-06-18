@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import be.irisnet.cirb.fixmystreet.R;
 
-public class ExerciceFMSActivity extends Activity {
+public class ExerciceFMSActivity extends FixMyStreetActivity {
 	/** Called when the activity is first created. */
 	
 	private static final String TAG = "ExerciceFMSActivity";
